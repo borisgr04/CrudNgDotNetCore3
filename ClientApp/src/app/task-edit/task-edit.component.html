@@ -1,0 +1,39 @@
+<p>
+  task-edit works!
+</p>
+
+<div *ngIf="task">
+
+  <div >
+    <h1 class="h2">Add</h1>
+  </div>
+  <p>Editar Tareas</p>
+
+  <div class="form-group">
+  <label>Titulo:
+    <input [(ngModel)]="task.title" placeholder="digite titulo" type="text"/>
+  </label>
+  </div>
+
+  <div>
+  <label>Descripción:
+    <input [(ngModel)]="task.description" placeholder="digite descripción " type="text"  />
+  </label>
+  </div>
+  <div>
+    <label>Prioritario:
+      <input type="checkbox"  [(ngModel)]="task.priority">
+  </label>
+  </div>
+  <div>
+  <button (click)="update()" class="btn btn-primary">Actualizar</button>
+  </div>
+  <div>
+    <button (click)="delete()" class="btn btn-primary">Eliminar</button>
+    </div>
+
+  <div>
+
+  </div>
+
+</div>
