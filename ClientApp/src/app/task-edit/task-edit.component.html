@@ -11,26 +11,26 @@
 
   <div class="form-group">
   <label>Titulo:
-    <input [(ngModel)]="task.title" placeholder="digite titulo" type="text"/>
+    <input [(ngModel)]="task.title"  class="form-control" placeholder="digite titulo" type="text"/>
   </label>
   </div>
 
-  <div>
+  <div class="form-group">
   <label>Descripción:
-    <input [(ngModel)]="task.description" placeholder="digite descripción " type="text"  />
+    <input [(ngModel)]="task.description" class="form-control" placeholder="digite descripción " type="text"  />
   </label>
   </div>
-  <div>
+
+  <div class="form-group">
     <label>Prioritario:
-      <input type="checkbox"  [(ngModel)]="task.priority">
+      <input type="checkbox" class="form-control" [(ngModel)]="task.priority">
   </label>
   </div>
-  <div>
+
+  <div class="form-group">
   <button (click)="update()" class="btn btn-primary">Actualizar</button>
+  <button (click)="delete()" class="btn btn-primary">Eliminar</button>
   </div>
-  <div>
-    <button (click)="delete()" class="btn btn-primary">Eliminar</button>
-    </div>
 
   <div>
 

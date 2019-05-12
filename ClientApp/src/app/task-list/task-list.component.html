@@ -5,7 +5,8 @@
   <h1 class="h2">List</h1>
 </div>
 <div>
-  <table border="1">
+  <table class='table table-striped'>
+    <thead>
     <tr>
       <th>Titulo</th>
       <th>Descripción</th>
@@ -13,6 +14,7 @@
       <th></th>
       <th></th>
     </tr>
+  </thead>
     <tr *ngFor="let task of tasks">
       <td>{{task.title}}</td>
       <td>{{task.description}}</td>
