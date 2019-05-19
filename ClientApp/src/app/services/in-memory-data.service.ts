@@ -8,7 +8,7 @@ import { Task } from '../models/task';
 export class InMemoryDataService implements InMemoryDbService {
 
   createDb() {
-    const tasks = [
+    const Task = [
       { id: 11, title: 'Mr. Nice', description:'...', priority:true },
       { id: 12, title: 'Narco', description:'...', priority:true },
       { id: 13, title: 'Bombasto', description:'...', priority:false },
@@ -20,7 +20,7 @@ export class InMemoryDataService implements InMemoryDbService {
       { id: 19, title: 'Magma' , description:'...', priority:true},
       { id: 20, title: 'Tornado' , description:'...', priority:true}
     ];
-    return {tasks};
+    return {Task};
   }
 
   // Overrides the genId method to ensure that a hero always has an id.
