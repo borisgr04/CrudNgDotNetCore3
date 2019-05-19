@@ -13,13 +13,11 @@ const httpOptions = {
 })
 export class TaskService {
 
-
   constructor(private http: HttpClient, @Inject('BASE_URL') private baseUrl: string) { }
 
-
   /** POST: add a new task to the server */
-  add0(task: Task): Observable<Task> {
-    return this.http.post<Task>(this.baseUrl + 'api/Todo', task, httpOptions).pipe(
+  add(task: Task): Observable<Task> {
+    return this.http.post<Task>(this.baseUrl + 'api/Task', task, httpOptions).pipe(
       tap((newTask: Task) => this.log(`added newTask w/ id=${newTask.id}`)),
       catchError(this.handleError<Task>('addTask'))
     );
@@ -29,7 +27,7 @@ export class TaskService {
   /** GET heroes from the server */
   getAll(): Observable<Task[]> {
 
-    return this.http.get<Task[]>(this.baseUrl + 'api/Todo')
+    return this.http.get<Task[]>(this.baseUrl + 'api/Task')
       .pipe(
         tap(_ => this.log('fetched task')),
         catchError(this.handleError<Task[]>('getTask', []))
@@ -38,16 +36,16 @@ export class TaskService {
 
   /** GET hero by id. Will 404 if id not found */
   get(id: number): Observable<Task> {
-    const url = `${this.baseUrl + 'api/Todo'}/${id}`;
+    const url = `${this.baseUrl + 'api/Task'}/${id}`;
     return this.http.get<Task>(url).pipe(
-      tap(_ => this.log(`fetched hero id=${id}`)),
+      tap(_ => this.log(`fetched task id=${id}`)),
       catchError(this.handleError<Task>(`getHero id=${id}`))
     );
   }
 
    /** PUT: update the hero on the server */
    update (task: Task): Observable<any> {
-    const url = `${this.baseUrl + 'api/Todo'}/${task.id}`;
+    const url = `${this.baseUrl + 'api/Task'}/${task.id}`;
     return this.http.put(url, task, httpOptions).pipe(
       tap(_ => this.log(`updated task id=${task.id}`)),
       catchError(this.handleError<any>('task'))
@@ -57,7 +55,7 @@ export class TaskService {
    /** DELETE: delete the hero from the server */
    delete (task: Task | number): Observable<Task> {
     const id = typeof task === 'number' ? task : task.id;
-    const url = `${this.baseUrl + 'api/Todo'}/${id}`;
+    const url = `${this.baseUrl + 'api/Task'}/${id}`;
 
     return this.http.delete<Task>(url, httpOptions).pipe(
       tap(_ => this.log(`deleted task id=${id}`)),

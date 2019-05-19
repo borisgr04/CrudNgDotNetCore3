@@ -1,5 +1,8 @@
-using Newtonsoft.Json;
-public class TodoItem
+﻿using Newtonsoft.Json;
+/// <summary>
+/// Se colaca TaskItem en lugar de Task, porque Task es un clase propia de NetCore
+/// </summary>
+public class TaskItem
 {
     public long Id { get; set; }
     [JsonProperty("title")]

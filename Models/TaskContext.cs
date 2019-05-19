@@ -2,13 +2,13 @@ using Microsoft.EntityFrameworkCore;
 
 namespace ng_core_crud.Models
 {
-   public class TodoContext : DbContext
+   public class TaskContext : DbContext
     {
-        public TodoContext(DbContextOptions<TodoContext> options)
+        public TaskContext(DbContextOptions<TaskContext> options)
             : base(options)
         {
         }
 
-        public DbSet<TodoItem> TodoItems { get; set; }
+        public DbSet<TaskItem> Tasks { get; set; }
     }
 }

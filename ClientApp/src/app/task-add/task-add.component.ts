@@ -19,7 +19,7 @@ export class TaskAddComponent implements OnInit {
   }
   add(): void {
 
-      this.taskService.add0(this.task)
+      this.taskService.add(this.task)
       .subscribe(task => {
         alert('Se agregó una nueva tarea');
       });
