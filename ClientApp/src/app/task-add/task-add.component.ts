@@ -18,14 +18,9 @@ export class TaskAddComponent implements OnInit {
     console.log('se inicializa el objeto task');
   }
   add(): void {
-
       this.taskService.add(this.task)
       .subscribe(task => {
         alert('Se agregó una nueva tarea');
       });
-
-
   }
-
-
 }

@@ -9,16 +9,10 @@ export class InMemoryDataService implements InMemoryDbService {
 
   createDb() {
     const Task = [
-      { id: 11, title: 'Mr. Nice', description:'...', priority:true },
-      { id: 12, title: 'Narco', description:'...', priority:true },
-      { id: 13, title: 'Bombasto', description:'...', priority:false },
-      { id: 14, title: 'Celeritas', description:'...', priority:true },
-      { id: 15, title: 'Magneta', description:'...', priority:true },
-      { id: 16, title: 'RubberMan', description:'...', priority:true },
-      { id: 17, title: 'Dynama' , description:'...', priority:true},
-      { id: 18, title: 'Dr IQ' , description:'...', priority:true},
-      { id: 19, title: 'Magma' , description:'...', priority:true},
-      { id: 20, title: 'Tornado' , description:'...', priority:true}
+      { id: 11, title: 'Crear Proyecto NetCore', description:'...', priority:true },
+      { id: 12, title: 'Ejecutar Proyecto', description:'...', priority:true },
+      { id: 13, title: 'Probar Proyecto', description:'...', priority:false },
+      { id: 14, title: 'Depurar Proyecto', description:'...', priority:true }
     ];
     return {Task};
   }

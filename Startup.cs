@@ -7,6 +7,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using ng_core_crud.Models;
+using NJsonSchema;
+using NSwag.AspNetCore;
 
 namespace ng_core_crud
 {
@@ -22,15 +24,19 @@ namespace ng_core_crud
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<TaskContext>(opt => opt.UseInMemoryDatabase("TodoList"));
+            services.AddDbContext<TaskContext>(opt => opt.UseInMemoryDatabase("TaskList"));
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+
+            // Register the Swagger services
+            services.AddSwaggerDocument();
 
             // In production, the Angular files will be served from this directory
             services.AddSpaStaticFiles(configuration =>
             {
                 configuration.RootPath = "ClientApp/dist";
             });
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -51,6 +57,10 @@ namespace ng_core_crud
             app.UseStaticFiles();
             app.UseSpaStaticFiles();
 
+           // Register the Swagger generator and the Swagger UI middlewares
+            app.UseSwagger();
+            app.UseSwaggerUi3();
+            
             app.UseMvc(routes =>
             {
                 routes.MapRoute(

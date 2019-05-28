@@ -17,12 +17,12 @@ export class TaskService {
 
   /** POST: add a new task to the server */
   add(task: Task): Observable<Task> {
+
     return this.http.post<Task>(this.baseUrl + 'api/Task', task, httpOptions).pipe(
       tap((newTask: Task) => this.log(`added newTask w/ id=${newTask.id}`)),
       catchError(this.handleError<Task>('addTask'))
     );
   }
-
 
   /** GET heroes from the server */
   getAll(): Observable<Task[]> {
@@ -85,7 +85,7 @@ export class TaskService {
 
   /** Log a HeroService message with the MessageService */
   private log(message: string) {
-    //alert(message);
+    // alert(message);
     // this.messageService.add(`HeroService: ${message}`);
   }
 }

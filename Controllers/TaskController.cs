@@ -48,6 +48,8 @@ namespace TodoApi.Controllers
             return task;
         }
 
+        [ProducesResponseType(201)]     // Created
+        [ProducesResponseType(400)]     // BadRequest
         // POST: api/Task
         [HttpPost]
         public async Task<ActionResult<TaskItem>> Post(TaskItem item)
