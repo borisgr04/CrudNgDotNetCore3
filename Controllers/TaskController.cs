@@ -6,7 +6,7 @@ using System.Linq;
 using System.Threading.Tasks;
 
 
-namespace TodoApi.Controllers
+namespace ng_core_crud.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
