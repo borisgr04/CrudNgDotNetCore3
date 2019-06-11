@@ -24,12 +24,34 @@ namespace ng_core_crud
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<TaskContext>(opt => opt.UseInMemoryDatabase("TaskList"));
-
+            //services.AddDbContext<TaskContext>(opt => opt.UseInMemoryDatabase("TaskList"));
+            
+            services.AddDbContext<TaskContext>(opt => opt.UseSqlServer(@"Server=.\;Database=TaskDB;Trusted_Connection=True;"));
+            
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
             // Register the Swagger services
-            services.AddSwaggerDocument();
+            services.AddSwaggerDocument(config =>
+            {
+                config.PostProcess = document =>
+                {
+                    document.Info.Version = "v1";
+                    document.Info.Title = "Task API";
+                    document.Info.Description = "A simple ASP.NET Core web API";
+                    document.Info.TermsOfService = "None";
+                    document.Info.Contact = new NSwag.SwaggerContact
+                    {
+                        Name = "Prog Web",
+                        Email = string.Empty,
+                        Url = "https://twitter.com/spboyer"
+                    };
+                    document.Info.License = new NSwag.SwaggerLicense
+                    {
+                        Name = "Use under LICX",
+                        Url = "https://example.com/license"
+                    };
+                };
+            });
 
             // In production, the Angular files will be served from this directory
             services.AddSpaStaticFiles(configuration =>
@@ -60,7 +82,7 @@ namespace ng_core_crud
            // Register the Swagger generator and the Swagger UI middlewares
             app.UseSwagger();
             app.UseSwaggerUi3();
-            
+
             app.UseMvc(routes =>
             {
                 routes.MapRoute(

@@ -13,36 +13,24 @@ export class TaskEditComponent implements OnInit {
 
   task:Task;
   stask:string;
-  constructor
-    (
-    private route: ActivatedRoute,
-    private taskService: TaskService,
-    private location: Location
-    ) { }
-
+  constructor(private route: ActivatedRoute, private taskService: TaskService,    private location: Location) { }
   ngOnInit() {
     this.get();
   }
-
   get(): void {
     const id = +this.route.snapshot.paramMap.get('id');
     this.taskService.get(id)
       .subscribe(hero => this.task = hero);
   }
-
   update(): void {
     this.taskService.update(this.task)
       .subscribe(() => this.goBack());
   }
-
   delete(): void {
     this.taskService.delete(this.task)
       .subscribe(() => this.goBack());
   }
-
   goBack(): void {
     this.location.back();
   }
-
-
 }

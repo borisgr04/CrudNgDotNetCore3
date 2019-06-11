@@ -4,6 +4,7 @@
 /// </summary>
 public class TaskItem
 {
+    [JsonProperty("id")]
     public long Id { get; set; }
     [JsonProperty("title")]
     public string Title { get; set; }
