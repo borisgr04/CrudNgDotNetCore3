@@ -6,9 +6,9 @@ using Microsoft.AspNetCore.SpaServices.AngularCli;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using ng_core_crud.Models;
-using NJsonSchema;
-using NSwag.AspNetCore;
+
 
 namespace ng_core_crud
 {
@@ -25,33 +25,33 @@ namespace ng_core_crud
         public void ConfigureServices(IServiceCollection services)
         {
             //services.AddDbContext<TaskContext>(opt => opt.UseInMemoryDatabase("TaskList"));
-            
+
             services.AddDbContext<TaskContext>(opt => opt.UseSqlServer(@"Server=.\;Database=TaskDB;Trusted_Connection=True;"));
-            
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+
+            services.AddControllersWithViews();
 
             // Register the Swagger services
-            services.AddSwaggerDocument(config =>
-            {
-                config.PostProcess = document =>
-                {
-                    document.Info.Version = "v1";
-                    document.Info.Title = "Task API";
-                    document.Info.Description = "A simple ASP.NET Core web API";
-                    document.Info.TermsOfService = "None";
-                    document.Info.Contact = new NSwag.SwaggerContact
-                    {
-                        Name = "Prog Web",
-                        Email = string.Empty,
-                        Url = "https://twitter.com/spboyer"
-                    };
-                    document.Info.License = new NSwag.SwaggerLicense
-                    {
-                        Name = "Use under LICX",
-                        Url = "https://example.com/license"
-                    };
-                };
-            });
+            //services.AddSwaggerDocument(config =>
+            //{
+            //    config.PostProcess = document =>
+            //    {
+            //        document.Info.Version = "v1";
+            //        document.Info.Title = "Task API";
+            //        document.Info.Description = "A simple ASP.NET Core web API";
+            //        document.Info.TermsOfService = "None";
+            //        document.Info.Contact = new NSwag.SwaggerContact
+            //        {
+            //            Name = "Prog Web",
+            //            Email = string.Empty,
+            //            Url = "https://twitter.com/spboyer"
+            //        };
+            //        document.Info.License = new NSwag.SwaggerLicense
+            //        {
+            //            Name = "Use under LICX",
+            //            Url = "https://example.com/license"
+            //        };
+            //    };
+            //});
 
             // In production, the Angular files will be served from this directory
             services.AddSpaStaticFiles(configuration =>
@@ -62,7 +62,7 @@ namespace ng_core_crud
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
             {
@@ -79,17 +79,38 @@ namespace ng_core_crud
             app.UseStaticFiles();
             app.UseSpaStaticFiles();
 
-           // Register the Swagger generator and the Swagger UI middlewares
-            app.UseSwagger();
-            app.UseSwaggerUi3();
+            app.UseRouting();
+            app.UseCors(options => options.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin());
 
-            app.UseMvc(routes =>
-            {
-                routes.MapRoute(
-                    name: "default",
-                    template: "{controller}/{action=Index}/{id?}");
-            });
             
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapControllerRoute(
+                    name: "default",
+                    pattern: "{controller}/{action=Index}/{id?}");
+            });
+
+            // Enable middleware to serve generated Swagger as a JSON endpoint.
+            //app.UseSwagger();
+
+            //// specifying the Swagger JSON endpoint.
+            //// Swagger UI
+            //app.UseSwaggerUI(options =>
+            //{
+            //    options.SwaggerEndpoint("/swagger/v1/swagger.json", "Ejemplo Task v1");
+
+            //    // Additional OAuth settings (See https://github.com/swagger-api/swagger-ui/blob/v3.10.0/docs/usage/oauth2.md)
+            //    options.OAuthClientId("presupuestoOpenApiDev");
+            //    options.OAuthClientSecret("presupuestoOpenApiSecret");
+            //    options.OAuthRealm("Presupuesto-realm");
+            //    options.OAuthAppName("Presupuesto Open Api");
+            //    options.OAuthScopeSeparator(" ");
+            //    options.OAuthUseBasicAuthenticationWithAccessCodeGrant();
+            //    options.ConfigObject.DeepLinking = true;
+            //});
+
+
+
             app.UseSpa(spa =>
             {
                 // To learn more about options for serving an Angular SPA from ASP.NET Core,
