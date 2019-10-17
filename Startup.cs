@@ -1,14 +1,13 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SpaServices.AngularCli;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.OpenApi.Models;
 using ng_core_crud.Models;
-
+using System;
 
 namespace ng_core_crud
 {
@@ -30,31 +29,31 @@ namespace ng_core_crud
 
             services.AddControllersWithViews();
 
-            // Register the Swagger services
-            //services.AddSwaggerDocument(config =>
-            //{
-            //    config.PostProcess = document =>
-            //    {
-            //        document.Info.Version = "v1";
-            //        document.Info.Title = "Task API";
-            //        document.Info.Description = "A simple ASP.NET Core web API";
-            //        document.Info.TermsOfService = "None";
-            //        document.Info.Contact = new NSwag.SwaggerContact
-            //        {
-            //            Name = "Prog Web",
-            //            Email = string.Empty,
-            //            Url = "https://twitter.com/spboyer"
-            //        };
-            //        document.Info.License = new NSwag.SwaggerLicense
-            //        {
-            //            Name = "Use under LICX",
-            //            Url = "https://example.com/license"
-            //        };
-            //    };
-            //});
+            //Register the Swagger services
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new OpenApiInfo
+                {
+                    Version = "v1",
+                    Title = "Task API",
+                    Description = "Task API - ASP.NET Core Web API",
+                    TermsOfService = new Uri("https://cla.dotnetfoundation.org/"),
+                    Contact = new OpenApiContact
+                    {
+                        Name = "Unicesar",
+                        Email = string.Empty,
+                        Url = new Uri("https://github.com/borisgr04/CrudNgDotNetCore3"),
+                    },
+                    License = new OpenApiLicense
+                    {
+                        Name = "Licencia dotnet foundation",
+                        Url = new Uri("https://www.byasystems.co/license"),
+                    }
+                });
+            });
 
-            // In production, the Angular files will be served from this directory
-            services.AddSpaStaticFiles(configuration =>
+                // In production, the Angular files will be served from this directory
+                services.AddSpaStaticFiles(configuration =>
             {
                 configuration.RootPath = "ClientApp/dist";
             });
@@ -90,26 +89,13 @@ namespace ng_core_crud
                     pattern: "{controller}/{action=Index}/{id?}");
             });
 
-            // Enable middleware to serve generated Swagger as a JSON endpoint.
-            //app.UseSwagger();
-
-            //// specifying the Swagger JSON endpoint.
-            //// Swagger UI
-            //app.UseSwaggerUI(options =>
-            //{
-            //    options.SwaggerEndpoint("/swagger/v1/swagger.json", "Ejemplo Task v1");
-
-            //    // Additional OAuth settings (See https://github.com/swagger-api/swagger-ui/blob/v3.10.0/docs/usage/oauth2.md)
-            //    options.OAuthClientId("presupuestoOpenApiDev");
-            //    options.OAuthClientSecret("presupuestoOpenApiSecret");
-            //    options.OAuthRealm("Presupuesto-realm");
-            //    options.OAuthAppName("Presupuesto Open Api");
-            //    options.OAuthScopeSeparator(" ");
-            //    options.OAuthUseBasicAuthenticationWithAccessCodeGrant();
-            //    options.ConfigObject.DeepLinking = true;
-            //});
-
-
+            app.UseSwagger();
+            app.UseSwaggerUI(
+                options =>
+                {
+                    options.SwaggerEndpoint("/swagger/v1/swagger.json", "Signus Prespuesto v1");
+                }
+            );
 
             app.UseSpa(spa =>
             {
