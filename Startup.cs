@@ -23,9 +23,9 @@ namespace ng_core_crud
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            //services.AddDbContext<TaskContext>(opt => opt.UseInMemoryDatabase("TaskList"));
+            services.AddDbContext<TaskContext>(opt => opt.UseInMemoryDatabase("TaskList"));
 
-            services.AddDbContext<TaskContext>(opt => opt.UseSqlServer(@"Server=.\;Database=TaskDB;Trusted_Connection=True;"));
+            //services.AddDbContext<TaskContext>(opt => opt.UseSqlServer(@"Server=.\;Database=TaskDB;Trusted_Connection=True;"));
 
             services.AddControllersWithViews();
 
@@ -93,7 +93,7 @@ namespace ng_core_crud
             app.UseSwaggerUI(
                 options =>
                 {
-                    options.SwaggerEndpoint("/swagger/v1/swagger.json", "Signus Prespuesto v1");
+                    options.SwaggerEndpoint("/swagger/v1/swagger.json", "Signus Example v1");
                 }
             );
 
